@@ -2,6 +2,24 @@
 
 A complete desktop application for secure steganography. Images use Canny/Sobel edge detection combined with a CNN classifier for intelligent LSB embedding; audio (WAV) uses sequential LSB embedding across PCM samples.
 
+## Screenshots
+
+**Image Steganography Tab**
+**Encode Tab**
+![Encode Tab]("C:\Users\moksh\OneDrive\Pictures\Screenshots\Screenshot (202).png")
+
+**Decode Tab**
+![Decode Tab]("C:\Users\moksh\OneDrive\Pictures\Screenshots\Screenshot (205).png")
+
+**Metrics & Results**
+![Metrics Tab]("C:\Users\moksh\OneDrive\Pictures\Screenshots\Screenshot (203).png")
+![Metrics Tab]("C:\Users\moksh\OneDrive\Pictures\Screenshots\Screenshot (204).png")
+
+**Audio Steganography Tab**
+**Encode Tab**
+![Audio Tab]("C:\Users\moksh\OneDrive\Pictures\Screenshots\Screenshot (206).png")
+![Audio Tab]("C:\Users\moksh\OneDrive\Pictures\Screenshots\Screenshot (207).png")
+
 ## Quick Start (30 seconds)
 
 ```bash
