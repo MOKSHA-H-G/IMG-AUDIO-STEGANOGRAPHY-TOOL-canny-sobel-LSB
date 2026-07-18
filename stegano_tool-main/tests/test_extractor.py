@@ -52,7 +52,7 @@ def make_textured_image(h=300, w=300):
 
 def make_pipeline():
     edge_detector = EdgeDetector()
-    pixel_selector = PixelSelector(edge_detector, cnn_model=None)  # fallback mode
+    pixel_selector = PixelSelector(edge_detector)
     embedder = Embedder(pixel_selector)
     extractor = Extractor(pixel_selector)
     return embedder, extractor
