@@ -6,19 +6,19 @@ A complete desktop application for secure steganography. Images use Canny/Sobel 
 
 **Image Steganography Tab**
 **Encode Tab**
-![Encode Tab]("C:\Users\moksh\OneDrive\Pictures\Screenshots\Screenshot (202).png")
+![Encode Tab](C:\Users\moksh\OneDrive\Pictures\Screenshots\Screenshot (202).png)
 
 **Decode Tab**
-![Decode Tab]("C:\Users\moksh\OneDrive\Pictures\Screenshots\Screenshot (205).png")
+![Decode Tab](C:\Users\moksh\OneDrive\Pictures\Screenshots\Screenshot (205).png)
 
 **Metrics & Results**
-![Metrics Tab]("C:\Users\moksh\OneDrive\Pictures\Screenshots\Screenshot (203).png")
-![Metrics Tab]("C:\Users\moksh\OneDrive\Pictures\Screenshots\Screenshot (204).png")
+![Metrics Tab](C:\Users\moksh\OneDrive\Pictures\Screenshots\Screenshot (203).png)
+![Metrics Tab](C:\Users\moksh\OneDrive\Pictures\Screenshots\Screenshot (204).png)
 
 **Audio Steganography Tab**
 **Encode Tab**
-![Audio Tab]("C:\Users\moksh\OneDrive\Pictures\Screenshots\Screenshot (206).png")
-![Audio Tab]("C:\Users\moksh\OneDrive\Pictures\Screenshots\Screenshot (207).png")
+![Encode Tab](C:\Users\moksh\OneDrive\Pictures\Screenshots\Screenshot (206).png)
+![Decode Tab](C:\Users\moksh\OneDrive\Pictures\Screenshots\Screenshot (207).png)
 
 ## Quick Start (30 seconds)
 
