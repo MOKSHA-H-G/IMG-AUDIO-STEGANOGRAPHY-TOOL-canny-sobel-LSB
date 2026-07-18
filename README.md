@@ -4,21 +4,21 @@ A complete desktop application for secure steganography. Images use Canny/Sobel 
 
 ## Screenshots
 
-**Image Steganography Tab**
-**Encode Tab**
-![Encode Tab](C:\Users\moksh\OneDrive\Pictures\Screenshots\Screenshot (202).png)
+**Image Steganography — Encode Tab**
+![Encode Tab](screenshots/encode_tab.png)
 
-**Decode Tab**
-![Decode Tab](C:\Users\moksh\OneDrive\Pictures\Screenshots\Screenshot (205).png)
+**Image Steganography — Decode Tab**
+![Decode Tab](screenshots/decode_tab.png)
 
 **Metrics & Results**
-![Metrics Tab](C:\Users\moksh\OneDrive\Pictures\Screenshots\Screenshot (203).png)
-![Metrics Tab](C:\Users\moksh\OneDrive\Pictures\Screenshots\Screenshot (204).png)
+![Metrics Tab 1](screenshots/metrics_tab_1.png)
+![Metrics Tab 2](screenshots/metrics_tab_2.png)
 
-**Audio Steganography Tab**
-**Encode Tab**
-![Encode Tab](C:\Users\moksh\OneDrive\Pictures\Screenshots\Screenshot (206).png)
-![Decode Tab](C:\Users\moksh\OneDrive\Pictures\Screenshots\Screenshot (207).png)
+**Audio Steganography — Encode Tab**
+![Audio Encode Tab](screenshots/audio_encode_tab.png)
+
+**Audio Steganography — Decode Tab**
+![Audio Decode Tab](screenshots/audio_decode_tab.png)
 
 ## Quick Start (30 seconds)
 
