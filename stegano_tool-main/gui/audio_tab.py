@@ -1,4 +1,4 @@
-"""
+"""from utils.audio_cnn_analysis import rank_audio_regions
 audio_tab.py
 
 Audio Steganography tab: a sub-notebook with its own Encode / Decode
@@ -19,7 +19,7 @@ from gui.scrollable_frame import ScrollableFrame
 from core.audio_embedder import AudioEmbedder, AudioExtractor
 from core.audio_metrics import audio_metrics_report
 from utils.audio_utils import load_audio, save_audio, capacity_bits
-
+from utils.audio_edge_analysis import analyze_audio_edges
 _WAV_FILETYPES = [("WAV files", "*.wav"), ("All files", "*.*")]
 
 
@@ -43,6 +43,10 @@ class AudioEncodePage(ttk.Frame):
         top.pack(fill="x", padx=10, pady=8)
         ttk.Button(top, text="Browse Cover Audio (WAV)",
                    command=self.browse).pack(side="left")
+        ttk.Button(top,text="Analyze Audio Edges",
+                   command=self.run_edge_analysis).pack(side="left", padx=8)
+        ttk.Button(top,text="Rank Audio Regions (CNN)",
+                   command=self.run_cnn_analysis).pack(side="left", padx=8)
         self.file_label = ttk.Label(top, text="No audio loaded")
         self.file_label.pack(side="left", padx=10)
 
@@ -102,7 +106,134 @@ class AudioEncodePage(ttk.Frame):
             self._set_status("Audio loaded successfully.")
         except Exception as e:
             messagebox.showerror("Error", f"Failed to load audio:\n{e}")
+    def run_edge_analysis(self):
+        if self.cover_samples is None:
+            messagebox.showwarning(
+                "Warning",
+                "Please select a cover audio WAV file first."
+            )
+            return
 
+        samples = self.cover_samples.copy()
+        sample_rate = self.cover_params.framerate
+        channels = self.cover_params.nchannels
+
+        self._set_status("Analyzing audio edges...")
+
+        def worker():
+            try:
+                results = analyze_audio_edges(
+                    samples,
+                    sample_rate=sample_rate,
+                    channels=channels,
+                )
+
+                self.after(
+                    0,
+                    lambda: self.show_edge_results(results)
+                )
+
+            except Exception as e:
+                error_message = str(e)
+
+                def show_error():
+                    messagebox.showerror(
+                        "Audio Analysis Failed",
+                        error_message
+                    )
+                    self._set_status("Audio analysis failed.")
+
+                self.after(0, show_error)
+
+        threading.Thread(target=worker, daemon=True).start()
+    def run_cnn_analysis(self):
+        if self.cover_samples is None:
+            messagebox.showwarning(
+                "Warning",
+                "Please select a cover audio WAV file first."
+            )
+            return
+
+        try:
+            from utils.audio_cnn_analysis import rank_audio_regions
+
+            self._set_status("Ranking audio regions with CNN...")
+
+            results = rank_audio_regions(
+                self.cover_samples,
+                sample_rate=self.cover_params.framerate,
+                channels=self.cover_params.nchannels,
+            )
+
+            top_regions = results.get("top_regions", [])
+
+            lines = [f"Regions tested: {results.get('regions_tested', 0)}","","Top 5 regions by predicted suitability:",]
+
+            for i, region in enumerate(top_regions[:5], start=1):
+                lines.append(f"{i}. X: {region['x']}, Y: {region['y']}, "f"Score: {region['score']:.4f}")
+
+            messagebox.showinfo(
+                "Audio CNN Results",
+                "\n".join(lines)
+            )
+            self._set_status("Audio CNN analysis completed.")
+
+        except Exception as e:
+            self._set_status("Audio CNN analysis failed.")
+            messagebox.showerror(
+                "Audio CNN Analysis Failed",
+                str(e)
+            )
+    def show_edge_results(self, results):
+        window = tk.Toplevel(self)
+        window.title("Audio Canny and Sobel Analysis")
+        window.geometry("750x700")
+
+        container = ScrollableFrame(window)
+        container.pack(fill="both", expand=True)
+        content = container.content
+
+        window.edge_images = []
+
+        image_items = [
+            ("Audio Spectrogram", results["files"]["spectrogram"]),
+            ("Sobel Edge Detection", results["files"]["sobel_edges"]),
+            ("Canny Edge Detection", results["files"]["canny_edges"]),
+        ]
+
+        for title, path in image_items:
+            ttk.Label(
+                content,
+                text=title,
+                font=("Arial", 11, "bold")
+            ).pack(anchor="w", padx=10, pady=(12, 4))
+
+            try:
+                image = tk.PhotoImage(file=path)
+
+                factor = max(
+                    1,
+                    (image.width() + 699) // 700,
+                    (image.height() + 249) // 250,
+                )
+
+                if factor > 1:
+                    image = image.subsample(factor, factor)
+
+                window.edge_images.append(image)
+
+                ttk.Label(
+                    content,
+                    image=image
+                ).pack(anchor="w", padx=10, pady=4)
+
+            except tk.TclError as e:
+                ttk.Label(
+                    content,
+                    text=f"Could not display {path}: {e}"
+                ).pack(anchor="w", padx=10)
+
+        self._set_status("Audio edge analysis completed.")
     def update_counter(self, event=None):
         msg = self.message_text.get("1.0", "end-1c")
         chars = len(msg)
